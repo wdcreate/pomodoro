@@ -1,57 +1,76 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Main from "../components/Main";
 import Audio from "../components/Audio";
 
-function Mainpage() {
+export default function Mainpage() {
   const [time, setTime] = useState(10);
   const [sec, setSec] = useState(0);
   const [min, setMin] = useState(10);
+  const [startTimer, setStartTimer] = useState(false);
+  const [disabledBtn, setDisabledBtn] = useState(false);
+
+  useEffect(() => {
+    if (startTimer) {
+      timer();
+      setDisabledBtn(true);
+    }
+    if (!startTimer) {
+      setSec(0);
+      setDisabledBtn(false);
+    }
+    return () => {
+      clearTimeout(timerInt);
+    };
+  }, [min, sec, startTimer]);
+
   let timerInt;
 
-  function timer(time) {
-    timerInt = setInterval(timerF, 1000);
-
-    function timerF() {
-      if (sec === 0) {
-        setSec(59);
-        setMin(min-1);
-      } else {
-        setSec(sec-1);
+  const timer = () => {
+    const timerF = () => {
+      if (!sec) {
+        setSec(60);
+        setMin(min - 1);
       }
       if (sec <= 0 && min <= 0) {
-        clearInterval(timerInt);
+        clearTimeout(timerInt);
         setSec(0);
         setMin(0);
+        setStartTimer(false);
+        setDisabledBtn(true);
       }
-    }
-  }
-  console.log(sec)
-  console.log(min)
+      if (startTimer) {
+        setSec((prev) => prev - 1);
+      }
+    };
+    timerInt = setTimeout(timerF, 1000);
+  };
   const handleClickTime = (pomotime) => {
     clearInterval(timerInt);
-    setTime(pomotime);
     setMin(pomotime);
-    console.log("handleClickTime");
+    setTime(pomotime);
   };
   const handleBreak = (breaktime) => {
     clearInterval(timerInt);
     setMin(breaktime);
     timer(breaktime);
-    console.log("handlebreak");
   };
   const handlePomo = (pomo) => {
     setMin(pomo);
     clearInterval(timerInt);
-    console.log("handlepomo");
   };
 
   return (
     <div className="mainpage">
-      <Header time={time} handleClickTime={handleClickTime} />
+      <Header min={min} handleClickTime={handleClickTime}         setStartTimer={setStartTimer}
+/>
       <Main
+        disabledBtn={disabledBtn}
+        setStartTimer={setStartTimer}
+        startTimer={startTimer}
+        setMin={setMin}
+        setTime={setTime}
         timer={timer}
-        time={time}
         handleBreak={handleBreak}
         handlePomo={handlePomo}
         min={min}
@@ -61,5 +80,3 @@ function Mainpage() {
     </div>
   );
 }
-
-export default Mainpage;
