@@ -1,0 +1,133 @@
+@import "../../vars.scss";
+
+.main-inner {
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px 100px 100px 100px;
+  background-color: rgba($MAINCOLOR, 0.5);
+  width: 80%;
+  margin: 0 auto;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  &.active {
+    animation: maininner-anim 10s linear infinite;
+    -webkit-animation: maininner-anim 10s linear infinite;
+}
+  @media (max-width: 850px) {
+    width: 95%;
+    padding: 30px 45px 70px 45px;
+  }
+}
+@keyframes maininner-anim {
+  25% {
+    background-color: rgba($MAINCOLOR, 0.2);
+  }
+  50% {
+    background-color: rgba($MAINCOLOR, 0.7);
+  }
+  75% {
+    background-color: rgba($MAINCOLOR, 0.2);
+  }
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+  & > * {
+    transition: all 0.3s;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    padding: 7px 10px;
+    margin: 0 10px;
+    cursor: pointer;
+    background-color: transparent;
+    border: transparent;
+    outline: none;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    &:hover{
+      background: rgba($SECCOLOR, 0.1);
+    }
+    @media (max-width: 450px) {
+      font-size: 18px;
+      padding: 5px 7px;
+    }
+  }
+
+  & button.active {
+    background: rgba($SECCOLOR, 0.2);
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+  }
+}
+.time {
+  display: flex;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  & > * {
+    font-size: 8em;
+    font-weight: 900;
+    @media (max-width: 450px) {
+      font-size: 5em;
+    }
+  }
+}
+
+.start-btn {
+  opacity: 0;
+  margin-top: 50px;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  background-color: rgb(255, 230, 210);
+  color: rgba($SECCOLOR, 0.8);
+  font-size: 30px;
+  font-weight: 700;
+  border: 3px solid rgb(255, 230, 210);
+  outline: none;
+  padding: 20px 60px;
+  cursor: pointer;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  &.active-btn {
+    opacity: 1;
+  }
+  &:hover{
+    background-color: rgb(255, 230, 210,.8);
+  }
+}
+
+@media (max-width: 600px) {
+  .main-nav {
+    flex-direction: column;
+    width: 100%;
+    & > * {
+      width: 100%;
+    }
+  }
+  .time > * {
+    font-size: 6em;
+  }
+  .start-btn.active-btn {
+    margin-top: 30px;
+  }
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Main from "../components/Main";
 import Audio from "../components/Audio";
+import './styles/Mainpage.scss'
 
 export default function Mainpage() {
   const [time, setTime] = useState(10);
@@ -61,22 +62,27 @@ export default function Mainpage() {
   };
 
   return (
-    <div className="mainpage">
-      <Header min={min} handleClickTime={handleClickTime}         setStartTimer={setStartTimer}
-/>
-      <Main
-        disabledBtn={disabledBtn}
-        setStartTimer={setStartTimer}
-        startTimer={startTimer}
-        setMin={setMin}
-        setTime={setTime}
-        timer={timer}
-        handleBreak={handleBreak}
-        handlePomo={handlePomo}
-        min={min}
-        sec={sec}
-      />
-      <Audio />
+    <div className={startTimer? "mainpage active":"mainpage"}>
+      <div className="container">
+        <Header
+          min={min}
+          handleClickTime={handleClickTime}
+          setStartTimer={setStartTimer}
+        />
+        <Main
+          disabledBtn={disabledBtn}
+          setStartTimer={setStartTimer}
+          startTimer={startTimer}
+          setMin={setMin}
+          setTime={setTime}
+          timer={timer}
+          handleBreak={handleBreak}
+          handlePomo={handlePomo}
+          min={min}
+          sec={sec}
+        />
+        <Audio />
+      </div>
     </div>
   );
 }

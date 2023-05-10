@@ -1,0 +1,19 @@
+@import "../../vars.scss";
+
+.mainpage {
+  width: 100%;
+  height: 100vh;
+  background-repeat: no-repeat;
+  padding: 0;
+  margin: 0;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  background: radial-gradient(at center, $MAINCOLOR 15%, $MAINCOLOR2 96%);
+  &.active {
+    background: radial-gradient(at center, $MAINCOLOR -30%, $MAINCOLOR2 96%);
+  }
+}
+
