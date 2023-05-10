@@ -111,6 +111,12 @@
   &.active-btn {
     opacity: 1;
   }
+  &.pause{
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   &:hover{
     background-color: rgb(255, 230, 210,.8);
   }

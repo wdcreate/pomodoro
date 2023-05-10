@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Main from "../components/Main";
-import Audio from "../components/Audio";
 import './styles/Mainpage.scss'
 
 export default function Mainpage() {
@@ -9,6 +8,7 @@ export default function Mainpage() {
   const [sec, setSec] = useState(0);
   const [min, setMin] = useState(10);
   const [startTimer, setStartTimer] = useState(false);
+  const [pause, setPause] = useState(false);
   const [disabledBtn, setDisabledBtn] = useState(false);
 
   useEffect(() => {
@@ -16,7 +16,10 @@ export default function Mainpage() {
       timer();
       setDisabledBtn(true);
     }
-    if (!startTimer) {
+    if (!startTimer && pause) {
+      setDisabledBtn(false);
+    }
+    if (!startTimer && !pause) {
       setSec(0);
       setDisabledBtn(false);
     }
@@ -26,6 +29,7 @@ export default function Mainpage() {
   }, [min, sec, startTimer]);
 
   let timerInt;
+  let finish = new Audio(require("../audio/finish.mp3"));
 
   const timer = () => {
     const timerF = () => {
@@ -39,6 +43,7 @@ export default function Mainpage() {
         setMin(0);
         setStartTimer(false);
         setDisabledBtn(true);
+        finish.play()
       }
       if (startTimer) {
         setSec((prev) => prev - 1);
@@ -54,10 +59,12 @@ export default function Mainpage() {
   const handleBreak = (breaktime) => {
     clearInterval(timerInt);
     setMin(breaktime);
+    setTime(breaktime);
     timer(breaktime);
   };
   const handlePomo = (pomo) => {
     setMin(pomo);
+    setTime(pomo)
     clearInterval(timerInt);
   };
 
@@ -68,20 +75,22 @@ export default function Mainpage() {
           min={min}
           handleClickTime={handleClickTime}
           setStartTimer={setStartTimer}
+          setPause={setPause}
         />
         <Main
           disabledBtn={disabledBtn}
           setStartTimer={setStartTimer}
           startTimer={startTimer}
           setMin={setMin}
-          setTime={setTime}
           timer={timer}
+          time={time}
           handleBreak={handleBreak}
           handlePomo={handlePomo}
           min={min}
           sec={sec}
+          setPause={setPause}
+          pause={pause}
         />
-        <Audio />
       </div>
     </div>
   );

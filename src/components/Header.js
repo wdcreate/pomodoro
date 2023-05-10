@@ -1,11 +1,12 @@
 import React from 'react';
 import './styles/Header.scss'
 
-function Header({ handleClickTime,setStartTimer}) {
+function Header({ handleClickTime,setStartTimer,setPause}) {
 
   const handleTimeBtn = (time) => {
     handleClickTime(time)
     setStartTimer(false)
+    setPause(false)
   };
   
   return (
